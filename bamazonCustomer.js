@@ -1,5 +1,6 @@
 const inquirer = require("inquirer");
 const mysql = require("mysql");
+const Table = require("cli-table");
 
 const connection = mysql.createConnection({
 
@@ -16,9 +17,6 @@ const connection = mysql.createConnection({
 connection.connect(function(err) {
 
     if (err) throw err;
-    console.log(connection);
-    console.log("connected as id " + connection.threadId);
-    inventory();
 });
 
 function inventory() {
@@ -45,28 +43,40 @@ function inventory() {
 
     });
 
-    itemId();
     
 }
 
 function itemId() {
 
-    inquirer.prompt([
-
+    inquirer.
+        prompt([
         {
             name: "item_id",
-            type: "input",
             message: "Enter the ID number of the item you would like the purchase.",
+            type: "input",
+            validate: function(value) {
+                if (isNaN(value) === false) {
+                    return true;
+                }
+                return false;
+            }
 
         },{
             name: "input_num",
             type: "input",
-            message: "How many units of the item would you like to purchase?"
+            message: "How many units of the item would you like to purchase?",
+            validate: function(value) {
+                if (isNaN(value) === false) {
+                    return true;
+                }
+                return false;
+
+            }
         }
 
     ]).then(function(ans){
     
-   connection.query("SELECT * FROM products WHERE item_id = ?", ans.item_id, function(err, res) {
+   connection.query("SELECT * FROM bamazon.products WHERE item_id = ?", ans.item_id, function(err, res) {
         if (err) throw err;
 
         for (let i = 0; i < res.length; i++) {
@@ -87,7 +97,6 @@ function itemId() {
 
 
         }
-
     
     });
 
