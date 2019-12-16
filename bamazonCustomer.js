@@ -30,17 +30,25 @@ function inventory() {
     connection.query(query, function(err, res) {
         if (err) throw err;
 
-    })
+        const displayTable = new Table ({
+        head: ["Item ID", "Item", "Department", "Price", "Stock Quantity"],
+        colWidths: [10, 20, 20, 20, 20]
+
+        });
+
+        for (let i = 0; i < res.length; i++) {
+            const itemId = res[i].item_id,
+            productName = res[i].product_name,
+            departmentName = res[i].department_name,
+            price = res[i].price,
+            stockQuantity = res[i].stock_quantity;
+
+            displayTable.push([itemId, productName, departmentName, price, stockQuantity]);
+        }
+        console.log(displayTable.toString());
+
+    });
     
-    const displayTable = new Table ({
-        
-
-
-
-    })
-
-
-
 }
 
 function itemId() {
@@ -58,7 +66,7 @@ function itemId() {
             message: "How many units of the item would you like to purchase?"
         }
 
-    ]).then(function(ans) {
+    ]).then(function(ans){
     
     connection.query("SELECT * FROM products WHERE item_id = ?", ans.item_id, function(err, res) {
         for (let i = 0; i < res.length; i++) {
@@ -69,13 +77,11 @@ function itemId() {
         }
 
     
-    }
+    });
 
 
-
-    
-
-    
-
+    });
 
 }
+
+inventory();
