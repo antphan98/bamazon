@@ -24,3 +24,35 @@ connection.connect(function(err) {
 
 
 });
+
+function itemId() {
+
+    inquirer.prompt([
+
+        {
+            name: "item_id",
+            type: "input",
+            message: "Enter the ID number of the item you would like the purchase.",
+
+        },{
+            name: "input_num",
+            type: "input",
+            message: "How many units of the item would you like to purchase?"
+        }
+
+    ]).then(function(ans) {
+    
+    connection.query("SELECT * FROM products WHERE item_id = ?", ans.item_id, function(err, res) {
+
+
+        
+    }
+
+
+
+    }
+
+
+
+
+}
