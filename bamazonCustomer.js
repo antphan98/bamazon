@@ -104,8 +104,8 @@ function itemId() {
 
 }
 function updatedProducts(newStock, purchase) {
-    const newStock = res[i].stock_quantity - ans.input_num;
-    const purchase = res[i].p
+    // const newStock = res[i].stock_quantity - ans.input_num;
+    // const purchase = res[i].p
     connection.query("UPDATE products SET ? WHERE ?",
     [{
         stock_quantity: newStock
