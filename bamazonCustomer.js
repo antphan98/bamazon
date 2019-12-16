@@ -12,6 +12,7 @@ const connection = mysql.createConnection({
     password: "password",
     database: "bamazon"
 
+
 });
 
 connection.connect(function(err) {
@@ -87,7 +88,7 @@ function itemId() {
                 inventory();         
             } else {
 
-                console.log("You have selected " + res[i].product_name + "from the " + res[i].department_name + ".");
+                console.log("You have selected " + res[i].product_name + "from the " + res[i].department_name + " section.");
                 console.log("Your total will be " + res[i].price * ans.input_num);
 
 
