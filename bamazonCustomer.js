@@ -27,7 +27,7 @@ function inventory() {
 
         const displayTable = new Table ({
         head: ["Item ID", "Item", "Department", "Price", "Stock Quantity"],
-        colWidths: [10, 20, 20, 20, 20]
+        colWidths: [15, 30, 30, 30, 15]
 
         });
 
@@ -44,7 +44,7 @@ function inventory() {
 
     });
 
-    
+    itemId();
 }
 
 function itemId() {
@@ -88,11 +88,9 @@ function itemId() {
                 inventory();         
             } else {
 
-                console.log("You have selected " + res[i].product_name + "from the " + res[i].department_name + " section.");
+                console.log("You have selected " + res[i].product_name + " from the " + res[i].department_name + " section.");
                 console.log("Your total will be " + res[i].price * ans.input_num);
-
-
-
+                updatedProducts();
             }
            
 
@@ -105,6 +103,18 @@ function itemId() {
     });
 
 }
+function updatedProducts(newStock, purchase) {
+    const newStock = res[i].stock_quantity - ans.input_num;
+    const purchase = res[i].p
+    connection.query("UPDATE products SET ? WHERE ?",
+    [{
+        stock_quantity: newStock
+   }, {
+        item_id: purchase
+   }]);
+
+   console.log("Purchase completed. Thank you for shopping at Bamazon!");
+}
+
 
 inventory();
-itemId();
