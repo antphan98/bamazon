@@ -25,6 +25,24 @@ connection.connect(function(err) {
 
 });
 
+function inventory() {
+    const query = "SELECT * FROM products";
+    connection.query(query, function(err, res) {
+        if (err) throw err;
+
+    })
+    
+    const displayTable = new Table ({
+        
+
+
+
+    })
+
+
+
+}
+
 function itemId() {
 
     inquirer.prompt([
@@ -43,16 +61,21 @@ function itemId() {
     ]).then(function(ans) {
     
     connection.query("SELECT * FROM products WHERE item_id = ?", ans.item_id, function(err, res) {
+        for (let i = 0; i < res.length; i++) {
+
+           
 
 
-        
+        }
+
+    
     }
 
 
 
-    }
+    
 
-
+    
 
 
 }
