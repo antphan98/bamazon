@@ -18,8 +18,7 @@ connection.connect(function(err) {
     if (err) throw err;
     console.log(connection);
     console.log("connected as id " + connection.threadId);
-    connection.end();
-
+    inventory();
 });
 
 function inventory() {
@@ -67,9 +66,9 @@ function itemId() {
 
     ]).then(function(ans){
     
-    connection.query("SELECT * FROM products WHERE item_id = ?", ans.item_id, function(err, res) {
+   connection.query("SELECT * FROM products WHERE item_id = ?", ans.item_id, function(err, res) {
         if (err) throw err;
-        
+
         for (let i = 0; i < res.length; i++) {
             if(ans.input_num > res[i].stock_quantity) {
 
@@ -98,3 +97,4 @@ function itemId() {
 }
 
 inventory();
+itemId();
