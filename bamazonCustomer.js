@@ -7,8 +7,7 @@ const connection = mysql.createConnection({
     
     port: 3306,
 
-    user:"root",
-
+    user: "root",
     password: "password",
     database: "bamazon"
 
@@ -20,8 +19,6 @@ connection.connect(function(err) {
     console.log(connection);
     console.log("connected as id " + connection.threadId);
     connection.end();
-
-
 
 });
 
@@ -48,6 +45,8 @@ function inventory() {
         console.log(displayTable.toString());
 
     });
+
+    itemId();
     
 }
 
@@ -69,8 +68,22 @@ function itemId() {
     ]).then(function(ans){
     
     connection.query("SELECT * FROM products WHERE item_id = ?", ans.item_id, function(err, res) {
+        if (err) throw err;
+        
         for (let i = 0; i < res.length; i++) {
+            if(ans.input_num > res[i].stock_quantity) {
 
+                console.log("We are sorry, there is not enough product available for purchase at this time.")
+
+                inventory();         
+            } else {
+
+                console.log("You have selected " + res[i].product_name + "from the " + res[i].department_name + ".");
+                console.log("Your total will be " + res[i].price * ans.input_num);
+
+
+
+            }
            
 
 
